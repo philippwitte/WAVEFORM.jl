@@ -1,5 +1,7 @@
 module WAVEFORM
 
+using Printf, LinearAlgebra, Random, JOLI
+
 # package code goes here
 include("Operators/Operators.jl")
 include("Krylov/Krylov.jl")

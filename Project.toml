@@ -1,0 +1,10 @@
+name = "WAVEFORM"
+uuid = "f112b1fd-c2e7-4920-9402-d478f720e9a5"
+authors = ["philipp "]
+version = "0.1.0"
+
+[deps]
+JOLI = "bb331ad6-a1cf-11e9-23da-9bcb53c69f6f"
+LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
+Printf = "de0858da-6303-5e67-8744-51eddeeeb8d7"
+Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
