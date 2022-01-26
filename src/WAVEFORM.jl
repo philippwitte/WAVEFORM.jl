@@ -1,6 +1,6 @@
 module WAVEFORM
 
-using Printf, LinearAlgebra, Random, JOLI
+using Printf, LinearAlgebra, Random, JOLI, SparseArrays
 
 # package code goes here
 include("Operators/Operators.jl")

@@ -45,7 +45,7 @@ function fine2coarse(n,d,d_sub...;interp_type::Symbol=:linear)
     length(n)==length(n_sub) || throwArgumentError("n and n_sub must have the same length")
     minimum(n./n_sub)>=1 || throw(ArgumentError("n_sub must be smaller than n elementwise"))
     if interp_type==:linear
-        interp_basis = (xin,xout)->joLinInterp1D(xin,xout,T)
+        interp_basis = (xin,xout)->joLinInterp1D(xin,xout;DDT=T, RDT=T)
     elseif interp_type==:cubic
         interp_basis = (xin,xout)->joLagrangeInterp1D(xin,xout,T)
     else

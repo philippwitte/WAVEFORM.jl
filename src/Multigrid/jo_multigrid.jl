@@ -21,12 +21,12 @@ function joMultigrid(Hs,S,R,P,C,coarse_solver;
             prepend!(coarse_solves,[(b,x,mode::Bool)->multigrid_vcycle(Hf,Sf,Rf,Pf,CS,b,x,forw_mode=mode)])
         end
         solver = coarse_solves[1]
-        return joLinearFunctionFwdCT(n,n,
+        return joLinearFunctionFwd_A(n,n,
                                      x->solver(x,zeros(x),true),
                                      x->solver(x,zeros(x),false),
                                      eltype(Hs[1]),name="Recursive Multigrid Preconditioner")
     else
-        return joLinearFunctionFwdCT(n,n,
+        return joLinearFunctionFwd_A(n,n,
                              x->multigrid_multiply(Hs,S,R,P,C,x,forw_mode=true),
                              x->multigrid_multiply(Hs,S,R,P,C,x,forw_mode=false),
                              eltype(Hs[1]),name="V cycle Multigrid preconditioner")
