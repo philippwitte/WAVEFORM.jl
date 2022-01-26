@@ -53,23 +53,23 @@ function fine2coarse(n,d,d_sub...;interp_type::Symbol=:linear)
     end
     ndims = length(n)
     if ndims==1
-        f2c = interp_basis(linspace(0,1,n),linspace(0,1,n_sub))
-        c2f = interp_basis(linspace(0,1,n_sub),linspace(0,1,n))
+        f2c = interp_basis(range(0,1,n),range(0,1,n_sub))
+        c2f = interp_basis(range(0,1,n_sub),range(0,1,n))
     elseif ndims==2
-        f2c = joKron(interp_basis(linspace(0,1,n[2]),linspace(0,1,n_sub[2])),
-                     interp_basis(linspace(0,1,n[1]),linspace(0,1,n_sub[1])))
-        c2f = joKron(interp_basis(linspace(0,1,n_sub[2]),linspace(0,1,n[2])),
-                     interp_basis(linspace(0,1,n_sub[1]),linspace(0,1,n[1])))
+        f2c = joKron(interp_basis(range(0,stop=1,length=n[2]),range(0,stop=1,length=n_sub[2])),
+                     interp_basis(range(0,stop=1,length=n[1]),range(0,stop=1,length=n_sub[1])))
+        c2f = joKron(interp_basis(range(0,stop=1,length=n_sub[2]),range(0,stop=1,length=n[2])),
+                     interp_basis(range(0,stop=1,length=n_sub[1]),range(0,stop=1,length=n[1])))
     elseif ndims==3
-        c2f = joKron(interp_basis(linspace(0,1,n_sub[3]),linspace(0,1,n[3])),
-                     interp_basis(linspace(0,1,n_sub[2]),linspace(0,1,n[2])),
-                     interp_basis(linspace(0,1,n_sub[1]),linspace(0,1,n[1])))
+        c2f = joKron(interp_basis(range(0,stop=1,length=n_sub[3]),range(0,stop=1,length=n[3])),
+                     interp_basis(range(0,stop=1,length=n_sub[2]),range(0,stop=1,length=n[2])),
+                     interp_basis(range(0,stop=1,length=n_sub[1]),range(0,stop=1,length=n[1])))
         if interp_type==:linear
             f2c = c2f'
         else
-            f2c = joKron(interp_basis(linspace(0,1,n[3]),linspace(0,1,n_sub[3])),
-                         interp_basis(linspace(0,1,n[2]),linspace(0,1,n_sub[2])),
-                         interp_basis(linspace(0,1,n[1]),linspace(0,1,n_sub[1])))
+            f2c = joKron(interp_basis(range(0,stop=1,length=n[3]),range(0,stop=1,length=n_sub[3])),
+                         interp_basis(range(0,stop=1,length=n[2]),range(0,stop=1,length=n_sub[2])),
+                         interp_basis(range(0,stop=1,length=n[1]),range(0,stop=1,length=n_sub[1])))
         end
 
     else

@@ -37,7 +37,7 @@ function helmholtz_system(v::AbstractArray{F,1},model::Model{I,F},freq::Union{F,
         throw(ArgumentError())
     end
     npml = convert(Array{I,1},ceil.(vmax./(real(freq)*dt)))
-    npml = repmat(npml',2,1)
+    npml = repeat(npml',2,1)
     npml = min.(npml,opts.npml)
     # npml is a 2x3 matrix corresponding to
     # in 2D
@@ -49,7 +49,7 @@ function helmholtz_system(v::AbstractArray{F,1},model::Model{I,F},freq::Union{F,
     # [ #pml pts upper x  | # pml pts upper y  | # pml pts upper z ]
 
     nt_nopml = opts.comp_n
-    nt_pml = nt_nopml + sum(npml,1)'
+    nt_pml = nt_nopml + sum(npml,dims=1)'
     nt_pml = vec(nt_pml)
     ot_pml = opts.comp_o - vec(npml[1,:]) .* vec(dt)
     (Pext,Ppad) = get_pad_ext_ops(nt_nopml,npml,ndims)

@@ -4,7 +4,7 @@
 
 using JOLI   # Linear operators
 using PyPlot # For plotting
-using Waveform
+using WAVEFORM
 
 # Turn off annoying JOLI type checks
 JOLI.jo_type_mismatch_error_set(false)
