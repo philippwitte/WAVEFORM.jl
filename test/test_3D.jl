@@ -1,7 +1,7 @@
 using JOLI
 using Revise
-using Waveform
-
+using WAVEFORM
+using LinearAlgebra
 
 
 n = 100*[1;1;1];
@@ -30,11 +30,11 @@ comp_d = d;
 comp_o = o;
 npml = convert(Int,λ/minimum(comp_d))*ones(Int64,(2,3));
 npml = 30*ones(Int64,(2,3));
-scheme = Waveform.helm3d_operto27;
+scheme = WAVEFORM.helm3d_operto27;
 cut_pml = true;
 implicit_matrix = true;
 srcfreqmask = trues(nsrc,nfreq);
-misfit = Waveform.least_squares;
+misfit = WAVEFORM.least_squares;
 lsopts = LinSolveOpts(solver=:fgmres,maxinnerit=5,tol=1e-6);
 lsopts.precond = :mlgmres;
 opts = PDEopts{Int64,Float64}(scheme,comp_n,comp_d,comp_o,cut_pml,implicit_matrix,npml,misfit,srcfreqmask,lsopts);
@@ -86,11 +86,11 @@ comp_d = d;
 comp_o = o;
 npml = convert(Int,λ/minimum(comp_d))*ones(Int64,(2,3));
 npml = 10*ones(Int64,(2,3));
-scheme = Waveform.helm3d_operto27;
+scheme = WAVEFORM.helm3d_operto27;
 cut_pml = true;
 implicit_matrix = true;
 srcfreqmask = trues(nsrc,nfreq);
-misfit = Waveform.least_squares;
+misfit = WAVEFORM.least_squares;
 lsopts = LinSolveOpts(solver=:fgmres,maxinnerit=5,tol=1e-10);
 lsopts.precond = :mlgmres;
 opts = PDEopts{Int64,Float64}(scheme,comp_n,comp_d,comp_o,cut_pml,implicit_matrix,npml,misfit,srcfreqmask,lsopts);
