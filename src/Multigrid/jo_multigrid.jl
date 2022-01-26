@@ -22,8 +22,8 @@ function joMultigrid(Hs,S,R,P,C,coarse_solver;
         end
         solver = coarse_solves[1]
         return joLinearFunctionFwd_A(n,n,
-                                     x->solver(x,zeros(x),true),
-                                     x->solver(x,zeros(x),false),
+                                     x->solver(x,similar(x) .* 0.,true),
+                                     x->solver(x,similar(x) .* 0.,false),
                                      eltype(Hs[1]),name="Recursive Multigrid Preconditioner")
     else
         return joLinearFunctionFwd_A(n,n,
@@ -42,13 +42,13 @@ function multigrid_vcycle(H,S,R,P,C,b,x;forw_mode::Bool=true)
         r = b-H'*xf
     end
     xc = R*r
-    xc = C(xc,zeros(xc),forw_mode)
+    xc = C(xc,similar(xc) .* 0.,forw_mode)
     xf .+= P*xc
     xf = S(b,xf,forw_mode)
 end
 
 function multigrid_multiply(Hs,S,R,P,C,b;forw_mode::Bool=true)
-    x = zeros(b)
+    x = similar(b) .* 0.
     x_lvl = Array{typeof(b),1}()
     b_lvl = Array{typeof(b),1}()
     push!(x_lvl,x)
@@ -67,7 +67,7 @@ function multigrid_multiply(Hs,S,R,P,C,b;forw_mode::Bool=true)
         push!(b_lvl,R[i]*bf)
     end
     x = x_lvl[end]
-    x = C(x,zeros(x),forw_mode)
+    x = C(x,similar(x) .* 0.,forw_mode)
     for i=nlevels-1:-1:1
         xf = x_lvl[i] + P[i]*x
         x = S[i](b_lvl[i],xf,forw_mode)
