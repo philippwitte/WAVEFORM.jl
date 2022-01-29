@@ -11,13 +11,13 @@ JOLI.jo_type_mismatch_error_set(false)
 JOLI.jo_type_mismatch_warn_set(false)
 
 # number of model points in each direction (z,x)
-n = 101*[1;1];
+n = 101 .* [1;1];
 
 # grid spacing in metres
-d = 10.0*[1;1];
+d = 10.0 .*[1;1];
 
 # location of the coordinate axis origin
-o = 0.0*[1;1];
+o = 0.0 .* [1;1];
 
 # Frequencies
 freqs = [5.0;10.0;15.0];
@@ -80,14 +80,14 @@ opts = PDEopts{Int64,Float64}(pde_scheme,comp_n,comp_d,comp_o,cut_pml,implicit_m
 
 v0 = vel_background*ones(n...); 
 v = copy(v0);
-v[div(n[1],3):2*div(n[1],3),div(n[2],3):2*div(n[2],3)] = 1.25*vel_background;
+v[div(n[1],3):2*div(n[1],3),div(n[2],3):2*div(n[2],3)] = 1.25.*vel_background;
 v = vec(v);
 v0 = vec(v0);
 
 # True velocity
 imshow(v);
 
-Q = eye(nsrc);
+Q = diagm(ones(nsrc));
 D = forw_model(v,Q,model,opts);
 
 

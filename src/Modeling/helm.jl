@@ -53,6 +53,8 @@ function helmholtz_system(v::AbstractArray{F,1},model::Model{I,F},freq::Union{F,
     nt_pml = vec(nt_pml)
     ot_pml = opts.comp_o - vec(npml[1,:]) .* vec(dt)
     (Pext,Ppad) = get_pad_ext_ops(nt_nopml,npml,ndims)
+    print(size(Pext))
+    print(size(Ppad))
     phys_to_comp = Pext
     if opts.cut_pml
         comp_to_phys = Ppad'

@@ -58,8 +58,9 @@ ut = H'\vec(q);
 
 # test computed green's function ≈ analytical green's function in the non-pml region
 (xt,yt,zt) = odn_to_grid(comp_grid.comp_o,comp_grid.comp_d,comp_grid.comp_n)
-idx = indmax(abs(q))
-(ix,iy,iz) = ind2sub(q,idx)
+idx = findmax(abs.(q))[2]
+qCartesian = CartesianIndices(q)
+(ix,iy,iz) = qCartesian[idx].I
 ω = (2*pi*freq)/v0;
 R = [sqrt((x-xt[ix])^2 + (y-yt[ix])^2 + (z-zt[ix])^2) for x in xt, y in yt, z in zt];
 G = [prod(model.d)*exp(im*ω*r)/(4*π*r) for r in R];
@@ -122,5 +123,4 @@ for i=1:length(step)
 end
 
 @test abs(median(diff(log10.(err0)))-1) < 0.2
-@test abs(median(diff(log10.(err1)))-2) < 0.2)
-
+@test abs(median(diff(log10.(err1)))-2) < 0.2
