@@ -73,7 +73,7 @@ function helmholtz_system(v::AbstractArray{F,1},model::Model{I,F},freq::Union{F,
             (H,dH,ddH) = helm2d_std7(nt_pml,dt,npml,freq,v_pml,model.f0,model.unit)
         end
         if lsopts.solver==:lufact
-            opH = joInvertibleMatrix(H)
+            opH = H#joInvertibleMatrix(H)
         else
             error("Unimplemented method $(opts.lsopts.solver) for 2D")
         end
